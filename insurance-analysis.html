@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>保险学课程学情分析AI测评系统</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body { font-family: "Microsoft YaHei", sans-serif; line-height: 1.6; margin: 20px; }
+        .container { display: flex; flex-wrap: wrap; gap: 20px; }
+        .question-section { flex: 1; min-width: 600px; }
+        .result-section { flex: 1; min-width: 600px; }
+        .section { margin: 30px 0; padding: 15px; border: 1px solid #eee; border-radius: 8px; }
+        .section-title { font-size: 18px; font-weight: bold; color: #2c3e50; margin-bottom: 15px; padding-bottom: 5px; border-bottom: 2px solid #3498db; }
+        .question-type { font-size: 14px; font-weight: bold; color: #2980b9; margin: 15px 0 10px; }
+        table { width: 100%; border-collapse: collapse; margin: 10px 0; }
+        table, th, td { border: 1px solid #ddd; padding: 10px; text-align: left; }
+        th { background-color: #f8f9fa; }
+        .question { margin: 10px 0; padding-left: 10px; border-left: 3px solid #3498db; }
+        .option { margin: 8px 0; cursor: pointer; padding: 5px; border-radius: 4px; }
+        .option:hover { background-color: #f0f7ff; }
+        .option.selected { background-color: #e6f7ff; border: 1px solid #91d5ff; }
+        textarea { width: 100%; padding: 10px; margin: 10px 0; border: 1px solid #ddd; border-radius: 4px; min-height: 100px; }
+        button { background-color: #3498db; color: white; border: none; padding: 10px 20px; border-radius: 4px; cursor: pointer; font-size: 16px; margin: 20px 0; }
+        button:hover { background-color: #2980b9; }
+        .chart-container { width: 100%; height: 300px; margin: 20px 0; }
+        .result-card { background-color: #f8f9fa; padding: 15px; border-radius: 8px; margin: 10px 0; }
+    </style>
+</head>
+<body>
+    <h1>保险学课程学情分析AI测评系统</h1>
+    <div class="container">
+        <!-- 左侧：题库与答案收集区 -->
+        <div class="question-section">
+            <!-- 一、专业基础维度 -->
+            <div class="section">
+                <div class="section-title">一、专业基础维度（30分）</div>
+                
+                <div class="question-type">1. 客观题（20分）</div>
+                <div class="question">
+                    <p>1. 新能源车险中“三电系统”不包含以下哪项？（单选）</p>
+                    <div class="options">
+                        <div class="option" data-question="p1-1" data-value="A">A.电池包</div>
+                        <div class="option" data-question="p1-1" data-value="B">B.电机</div>
+                        <div class="option" data-question="p1-1" data-value="C">C.电控</div>
+                        <div class="option" data-question="p1-1" data-value="D">D.变速箱</div>
+                    </div>
+                </div>
+
+                <div class="question">
+                    <p>2. 损失补偿原则的核心是（单选）</p>
+                    <div class="options">
+                        <div class="option" data-question="p1-2" data-value="A">A.足额赔付</div>
+                        <div class="option" data-question="p1-2" data-value="B">B.禁止不当得利</div>
+                        <div class="option" data-question="p1-2" data-value="C">C.按需赔付</div>
+                        <div class="option" data-question="p1-2" data-value="D">D.快速赔付</div>
+                    </div>
+                </div>
+
+                <div class="question">
+                    <p>3. 以下哪些属于新能源车险理赔的责任免除情形？（多选）</p>
+                    <div class="options">
+                        <div class="option" data-question="p1-3" data-value="A">A.三电系统自然衰减</div>
+                        <div class="option" data-question="p1-3" data-value="B">B.碰撞导致电池损坏</div>
+                        <div class="option" data-question="p1-3" data-value="C">C.未按规定保养导致电机故障</div>
+                        <div class="option" data-question="p1-3" data-value="D">D.地震引发的电池起火</div>
+                    </div>
+                </div>
+
+                <div class="question-type">2. 主观题（10分）</div>
+                <div class="question">
+                    <p>题干：简述传统车险与新能源车险在理赔流程、责任认定、风险关注点上的3点核心差异。</p>
+                    <textarea id="subjective-p1" placeholder="请输入答案..."></textarea>
+                </div>
+            </div>
+
+            <!-- 二、跨学科素养维度 -->
+            <div class="section">
+                <div class="section-title">二、跨学科素养维度（25分）</div>
+                
+                <div class="question-type">1. 学科认知题（15分）</div>
+                <div class="question">
+                    <p>1. 新能源汽车电池包碰撞损坏的常见类型不包括（单选）</p>
+                    <div class="options">
+                        <div class="option" data-question="p2-1" data-value="A">A.外壳变形</div>
+                        <div class="option" data-question="p2-1" data-value="B">B.电芯短路</div>
+                        <div class="option" data-question="p2-1" data-value="C">C.机油泄漏</div>
+                        <div class="option" data-question="p2-1" data-value="D">D.冷却系统故障</div>
+                    </div>
+                </div>
+
+                <div class="question">
+                    <p>2. 理赔数据中的“结案周期”是衡量理赔服务效率的核心指标之一（判断）</p>
+                    <div class="options">
+                        <div class="option" data-question="p2-2" data-value="对">对</div>
+                        <div class="option" data-question="p2-2" data-value="错">错</div>
+                    </div>
+                </div>
+
+                <div class="question-type">2. 应用意愿题（10分）</div>
+                <div class="question">
+                    <p>题干1：你更愿意参与以下哪类跨学科任务？（可多选）</p>
+                    <div class="options">
+                        <div class="option" data-question="p2-3" data-value="A">A.保险条款+法律判例的责任认定</div>
+                        <div class="option" data-question="p2-3" data-value="B">B.保险理赔+车辆技术的风险分析</div>
+                        <div class="option" data-question="p2-3" data-value="C">C.保险服务+数据科学的方案设计</div>
+                        <div class="option" data-question="p2-3" data-value="D">D.保险场景+环境科学的低碳举措</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 三、实践能力维度 -->
+            <div class="section">
+                <div class="section-title">三、实践能力维度（25分）</div>
+                
+                <div class="question">
+                    <p>案例分析题：某车主投保新能源车险后，车辆碰撞导致电池包外壳变形、电芯无损坏，车主主张全额更换电池包，保险公司认为仅需维修外壳。请列出保险公司的理赔责任认定步骤，并说明依据。</p>
+                    <textarea id="subjective-p3" placeholder="请输入答案..."></textarea>
+                </div>
+            </div>
+
+            <!-- 四、学习风格维度 -->
+            <div class="section">
+                <div class="section-title">四、学习风格维度（20分）</div>
+                <div class="question">
+                    <p>题干：以下描述符合你的学习习惯请选择“是”，不符合请选择“否”</p>
+                    <div class="options">
+                        <div class="option" data-question="p4-1" data-value="是">1. 偏好通过案例视频、动画理解理赔流程（视觉型）</div>
+                        <div class="option" data-question="p4-2" data-value="是">2. 喜欢听教师讲解、小组讨论梳理保险条款（听觉型）</div>
+                        <div class="option" data-question="p4-3" data-value="是">3. 擅长通过阅读条款文本记忆专业内容（阅读型）</div>
+                        <div class="option" data-question="p4-4" data-value="是">4. 倾向通过实操模拟掌握理赔技能（动觉型）</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 五、思政认知维度 -->
+            <div class="section">
+                <div class="section-title">五、思政认知维度（10分）</div>
+                <div class="question">
+                    <p>1. 新能源车险理赔中，优先保障农村车主理赔便捷性，体现的保险思政价值是（单选）</p>
+                    <div class="options">
+                        <div class="option" data-question="p5-1" data-value="A">A.合规经营</div>
+                        <div class="option" data-question="p5-1" data-value="B">B.民生保障</div>
+                        <div class="option" data-question="p5-1" data-value="C">C.技术创新</div>
+                        <div class="option" data-question="p5-1" data-value="D">D.行业竞争</div>
+                    </div>
+                </div>
+            </div>
+
+            <button id="generate-result">生成测评结果</button>
+        </div>
+
+        <!-- 右侧：结果可视化区 -->
+        <div class="result-section">
+            <div class="section">
+                <div class="section-title">测评结果可视化</div>
+                
+                <!-- 维度得分雷达图 -->
+                <div class="chart-container">
+                    <canvas id="radar-chart"></canvas>
+                </div>
+                
+                <!-- 学习风格饼图 -->
+                <div class="chart-container">
+                    <canvas id="style-chart"></canvas>
+                </div>
+                
+                <!-- 思政认知条形图 -->
+                <div class="chart-container">
+                    <canvas id="ideology-chart"></canvas>
+                </div>
+                
+                <!-- 分组建议 -->
+                <div class="result-card">
+                    <h3>推荐分组</h3>
+                    <p id="group-suggestion">请完成测评并点击生成结果按钮</p>
+                </div>
+                
+                <!-- 薄弱环节分析 -->
+                <div class="result-card">
+                    <h3>薄弱环节分析</h3>
+                    <p id="weakness-analysis">请完成测评并点击生成结果按钮</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 存储用户答案
+        const userAnswers = {};
+        
+        // 选项点击事件
+        document.querySelectorAll('.option').forEach(option => {
+            option.addEventListener('click', function() {
+                const questionId = this.getAttribute('data-question');
+                const value = this.getAttribute('data-value');
+                
+                // 单选处理
+                if (!['p1-3', 'p2-3'].includes(questionId)) {
+                    document.querySelectorAll(`.option[data-question="${questionId}"]`).forEach(opt => {
+                        opt.classList.remove('selected');
+                    });
+                    this.classList.add('selected');
+                    userAnswers[questionId] = value;
+                } 
+                // 多选处理
+                else {
+                    this.classList.toggle('selected');
+                    if (!userAnswers[questionId]) userAnswers[questionId] = [];
+                    if (this.classList.contains('selected')) {
+                        userAnswers[questionId].push(value);
+                    } else {
+                        userAnswers[questionId] = userAnswers[questionId].filter(v => v !== value);
+                    }
+                }
+            });
+        });
+        
+        // 生成结果按钮事件
+        document.getElementById('generate-result').addEventListener('click', function() {
+            // 收集主观题答案
+            userAnswers['subjective-p1'] = document.getElementById('subjective-p1').value;
+            userAnswers['subjective-p3'] = document.getElementById('subjective-p3').value;
+            
+            // 模拟评分计算（实际应用中应根据评分标准计算）
+            const scores = calculateScores();
+            
+            // 生成图表
+            generateRadarChart(scores.dimensions);
+            generateStyleChart(scores.styles);
+            generateIdeologyChart(scores.ideology);
+            
+            // 生成分组建议和薄弱环节分析
+            document.getElementById('group-suggestion').textContent = getGroupSuggestion(scores.total);
+            document.getElementById('weakness-analysis').textContent = getWeaknessAnalysis(scores.dimensions);
+        });
+        
+        // 模拟评分计算
+        function calculateScores() {
+            // 实际应用中应根据标准答案和评分标准计算
+            return {
+                total: 78, // 总分
+                dimensions: {
+                    专业基础: 24,
+                    跨学科素养: 20,
+                    实践能力: 18,
+                    学习风格适配: 16,
+                    思政认知: 8
+                },
+                styles: {
+                    视觉型: 4,
+                    听觉型: 3,
+                    阅读型: 2,
+                    动觉型: 3
+                },
+                ideology: {
+                    民生保障意识: 3,
+                    职业伦理认知: 2,
+                    国家战略契合度: 3
+                }
+            };
+        }
+        
+        // 生成雷达图
+        function generateRadarChart(data) {
+            const ctx = document.getElementById('radar-chart').getContext('2d');
+            new Chart(ctx, {
+                type: 'radar',
+                data: {
+                    labels: Object.keys(data),
+                    datasets: [{
+                        label: '维度得分',
+                        data: Object.values(data),
+                        backgroundColor: 'rgba(52, 152, 219, 0.2)',
+                        borderColor: 'rgba(52, 152, 219, 1)',
+                        pointBackgroundColor: 'rgba(52, 152, 219, 1)',
+                        pointBorderColor: '#fff'
+                    }]
+                },
+                options: {
+                    scales: {
+                        r: {
+                            beginAtZero: true,
+                            max: 30,
+                            ticks: { stepSize: 5 }
+                        }
+                    }
+                }
+            });
+        }
+        
+        // 生成学习风格饼图
+        function generateStyleChart(data) {
+            const ctx = document.getElementById('style-chart').getContext('2d');
+            new Chart(ctx, {
+                type: 'pie',
+                data: {
+                    labels: Object.keys(data),
+                    datasets: [{
+                        data: Object.values(data),
+                        backgroundColor: [
+                            'rgba(52, 152, 219, 0.7)',
+                            'rgba(46, 204, 113, 0.7)',
+                            'rgba(155, 89, 182, 0.7)',
+                            'rgba(241, 196, 15, 0.7)'
+                        ]
+                    }]
+                },
+                options: {
+                    plugins: {
+                        title: {
+                            display: true,
+                            text: '学习风格分布'
+                        }
+                    }
+                }
+            });
+        }
+        
+        // 生成思政认知条形图
+        function generateIdeologyChart(data) {
+            const ctx = document.getElementById('ideology-chart').getContext('2d');
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: Object.keys(data),
+                    datasets: [{
+                        label: '思政认知得分',
+                        data: Object.values(data),
+                        backgroundColor: 'rgba(231, 76, 60, 0.7)'
+                    }]
+                },
+                options: {
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            max: 5
+                        }
+                    },
+                    plugins: {
+                        title: {
+                            display: true,
+                            text: '思政认知维度得分'
+                        }
+                    }
+                }
+            });
+        }
+        
+        // 生成分组建议
+        function getGroupSuggestion(totalScore) {
+            if (totalScore >= 90) return '创新组（保险+数据科学+环境科学）：您具备优秀的专业基础和跨学科整合能力，适合参与复杂方案设计任务。';
+            else if (totalScore >= 75) return '进阶组（保险+车辆工程）：您的专业基础扎实，具备一定跨学科分析能力，适合参与技术风险分析任务。';
+            else return '基础组（保险+法学）：建议先强化核心条款与法律基础应用，逐步提升跨学科整合能力。';
+        }
+        
+        // 生成薄弱环节分析
+        function getWeaknessAnalysis(dimensions) {
+            const sorted = Object.entries(dimensions).sort((a, b) => a[1] - b[1]);
+            return `您在${sorted[0][0]}维度相对薄弱（得分${sorted[0][1]}），建议重点提升相关知识应用能力，可通过针对性案例练习和跨学科资料学习进行强化。`;
+        }
+    </script>
+</body>
+</html>
